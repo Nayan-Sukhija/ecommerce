@@ -1,0 +1,141 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Nayan | {{ block.super }}{% endblock %}
+
+{% block main %}
+<div class="container">
+    <div class="row summary mt-3">
+        <div class="col"><button class="button" type="button" data-bs-toggle="collapse"
+                data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                Summary
+            </button></div>
+        <div class="col total-cart"><span>Total Price: Rs. {{ total }}</span></div>
+    </div>
+    <div class="collapse" id="collapseExample">
+        <div class="card card-body mb-5 mt-4">
+            {% if user.is_authenticated %}
+            {% for dic_item in cart_items_list %}
+            <div class="row mt-5 product-row">
+                <div class="col-1 center cart-img">
+                    <img src="{% static '' %}homesite\{{ dic_item.name }}_0.jpeg"
+                        alt="Powder Blue" loading="lazy" width="60px" height="80px" class="cart-img">
+                </div>
+                <div class="col-7 product-details">
+                    <span class="checkout-text">{{ dic_item.name }}</span><br>
+                    <span class="checkout-text">Size: {{ dic_item.size }}</span><br>
+                    <span class="checkout-text">Quantity: {{ dic_item.quantity }}</span>
+                </div>
+                <div class="row product-price-cart">
+                    <span class="checkout-text">Price:  {{ dic_item.discounted_price }}</span>
+                </div>
+            </div>
+            <hr>
+            {% endfor %}
+            {% else %}
+            <div class="row  mt-5">
+                <div class="col-2 center">
+                    <img src="{% static '' %}homesite\{{ cart_items_list.name }}_0.jpeg"
+                        alt="Powder Blue" loading="lazy" width="60px" height="80px" class="cart-img">
+                </div>
+                <div class="col-9 product-details">
+                    <span class="checkout-text">{{ cart_items_list.name }}</span><br>
+                    <span class="checkout-text">Size: {{ cart_items_list.size }}</span><br>
+                    <span class="checkout-text">Quantity: {{ cart_items_list.quantity }}</span>
+                </div>
+                <div class="row product-price-cart">
+                    <span class="checkout-text">Price:  {{ cart_items_list.discounted_price }}</span>
+                </div>
+            </div>
+            <hr>
+            {% endif %}
+        </div>
+    </div>
+    <hr class="container">
+    <form class="row g-3" action="{% url 'pay_now' %}">
+        {% csrf_token %}
+        <input type="hidden" name="product_id" value="{{ cart_items_list.id }}">
+        <input type="hidden" name="size" value="{{ cart_items_list.size }}">
+        <input type="hidden" name="quantity" value="{{ cart_items_list.quantity }}">
+        <h2 class="center">DELIVERY DETAILS</h2>
+        <div class="col-md-6 form-floating">
+            <input type="text" class="form-control" id="inputName" value="f" required>
+            <label for="inputName" class="form-label ms-2">Name</label>
+        </div>
+        <div class="col-md-6 form-floating">
+            <input type="text" class="form-control" id="inputMobile" value="3" required>
+            <label for="inputMobile" class="form-label  ms-2">Mobile</label>
+
+        </div>
+        <div class="col-md-12 form-floating">
+            <input type="email" class="form-control" id="inputEmail" value="a@d.c" required>
+            <label for="inputEmail" class="form-label  ms-2">Email</label>
+            
+        </div>
+        <div class="col-12 form-floating">
+            <input type="text" class="form-control" id="inputAddress" value="s" required>
+            <label for="inputAddress" class="form-label  ms-2">Address</label>
+            
+        </div>
+        <div class="col-12 form-floating">
+            <input type="text" class="form-control" id="inputAddress2" value="f" required>
+            <label for="inputAddress2" class="form-label  ms-2">Address 2</label>
+            
+        </div>
+        <div class="col-md-6 form-floating">
+            <input type="text" class="form-control" id="inputCity" value="f" required>
+            <label for="inputCity" class="form-label  ms-2">City</label>
+            
+        </div>
+        <div class="col-md-4 form-floating detail-form">
+            <select id="inputState" class="form-select" required>
+                <option value="AP">Andhra Pradesh</option>
+                <option value="AR">Arunachal Pradesh</option>
+                <option value="AS">Assam</option>
+                <option value="BR">Bihar</option>
+                <option value="CT">Chhattisgarh</option>
+                <option value="GA">Gujarat</option>
+                <option value="HR">Haryana</option>
+                <option value="HP">Himachal Pradesh</option>
+                <option value="JK">Jammu and Kashmir</option>
+                <option value="GA">Goa</option>
+                <option value="JH">Jharkhand</option>
+                <option value="KA">Karnataka</option>
+                <option value="KL">Kerala</option>
+                <option value="MP">Madhya Pradesh</option>
+                <option value="MH">Maharashtra</option>
+                <option value="MN">Manipur</option>
+                <option value="ML">Meghalaya</option>
+                <option value="MZ">Mizoram</option>
+                <option value="NL">Nagaland</option>
+                <option value="OR">Odisha</option>
+                <option value="PB">Punjab</option>
+                <option value="RJ">Rajasthan</option>
+                <option value="SK">Sikkim</option>
+                <option value="TN">Tamil Nadu</option>
+                <option value="TG">Telangana</option>
+                <option value="TR">Tripura</option>
+                <option value="UT">Uttarakhand</option>
+                <option value="UP">Uttar Pradesh</option>
+                <option value="WB">West Bengal</option>
+                <option value="AN">Andaman and Nicobar Islands</option>
+                <option value="CH">Chandigarh</option>
+                <option value="DN">Dadra and Nagar Haveli</option>
+                <option value="DD">Daman and Diu</option>
+                <option value="DL">Delhi</option>
+                <option value="LD">Lakshadweep</option>
+                <option value="PY">Puducherry</option>
+            </select>
+            <label for="inputState" class="form-label ms-2">State</label>
+            
+        </div>
+        <div class="col-md-2 form-floating">
+            <input type="text" class="form-control" id="inputZip" value="125001" required>
+            <label for="inputZip" class="form-label  ms-2">Zip</label>
+            
+        </div>
+        <div class="col-12 d-flex justify-content-center form-group mt-4">
+            <button type="submit" class="button-black">PAY NOW</button>
+        </div>
+    </form>
+</div>
+{% endblock %}

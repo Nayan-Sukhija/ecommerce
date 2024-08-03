@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Home | {{ block.super }}{% endblock %}
+
+{% block main %}
+<div class="container-fluid banner p-0">
+  <div class="center">
+    <img class="center" src="{% static 'homesite/women.webp' %}">
+  </div>
+</div>
+<div class="container">
+
+  <p class="center fw-bold mt-5">LIMITED PERIOD OFFER</p>
+  <p class="center fw-bold mt-3 fs-1">GET UNDER ₹1599</p>
+  <div class="container text-center mt-5">
+    <div class="row row-cols-sm-1 row-cols-md-2 row-cols-lg-3 row-cols-xxl-4">
+      {% for product in products %}
+      <div class="col mb-3">
+        <a href="{% url 'product_page' product.id %}" id="product-link">
+          <div class="product-card">
+            <div class="images">
+              {% if product.img_count > 1 %}
+              <img class="image_on" src="{% static '' %}homesite/{{product.name}}_0.jpeg" alt="" width="300px"
+                height="420px">
+              <img class="image_off" src="{% static '' %}homesite/{{product.name}}_1.jpeg" alt="" width="300px"
+                height="420px">
+              {% else %}
+              <img class="image_on" src="{% static '' %}homesite/{{product.name}}_0.jpeg" alt="" width="300px"
+                height="420px">
+              {% endif %}
+            </div>
+            <p class="product-title">{{ product.name }}</p>
+            <p class="product-price">RS {{ product.discounted_price }} <span class="price-strike">RS {{ product.main_price }}</span></p>
+          </div>
+        </a>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+{% endblock %}

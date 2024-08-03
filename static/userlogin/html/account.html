@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}User | {{ block.super }}{% endblock %}
+{% block main %}
+<nav class="navbar navbar-expand-md my-2">
+    <div class="container-fluid">
+        <ul class="account-nav mx-auto fw-medium">
+            <li class="nav-item px-2">
+                <a class="nav-link active hover-underline-animation" aria-current="page"
+                    href="{% url 'user_account' %}">Orders</a>
+            </li>
+            <li class="nav-item px-2 mx-1">
+                <a class="nav-link active hover-underline-animation" aria-current="page"
+                    href="{% url 'user_address' %}">Addresses</a>
+            </li>
+            <li class="nav-item px-2 mx-1">
+                <a class="nav-link active hover-underline-animation" aria-current="page"
+                    href="{% url 'user_logout' %}">Logout</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+<hr class="hr">
+<div class="container-fluid text-center mt-5">
+    <p class="h1">Orders</p>
+    {% if not order_items_list %}
+    <p class="fw-light my-4">You have not placed any orders yet.</p>
+    <a href="{% url 'home' %}"><button class="button-black">Start Shopping</button></a>
+    {% else %}
+    <div>
+        {% for dic_item in order_items_list %}
+        <div class="row mt-5 product-row-orders">
+            <div class="col cart-img-orders">
+                <img src="{% static '' %}homesite\{{ dic_item.name }}_0.jpeg" alt="Powder Blue" loading="lazy"
+                    width="120px" height="160px" class="cart-img-orders">
+            </div>
+            <div class="col product-details-orders">
+                <span class="checkout-text-orders">{{ dic_item.name }}</span><br>
+                <span class="checkout-text-orders">Size: {{ dic_item.size }}</span><br>
+                <span class="checkout-text-orders">Quantity: {{ dic_item.quantity }}</span><br>
+                <span class="checkout-text-orders">Price: {{ dic_item.discounted_price }}</span>
+            </div>
+        </div>
+        <hr class="hr mt-5">
+        {% endfor %}
+    </div>
+    <div class="container text-center mt-4">
+        {% if page_number > 1 %}
+        
+          <button type="button" class="page-btn btn btn-dark"><a href="?page={{ page_number|add:-1 }}"><span class="page-text">Previous</span></a></button>
+        {% else %}
+        <button class="page-btn btn btn-outline-dark" disabled>Previous</button>
+        {% endif %}
+        <span class="my-3 mx-3">{{ page_number }} of {{ total_pages }}</span>
+        {% if page_number < total_pages %}
+        
+          <button type="button" class="page-btn btn btn-dark"><a href="?page={{ page_number|add:1 }}"><span class="page-text">Next</span></a></button>
+        {% else %}
+        <button class="page-btn btn btn-outline-dark" disabled>Next</button>
+        {% endif %}
+      </div>
+    {% endif %}
+</div>
+{% endblock %}

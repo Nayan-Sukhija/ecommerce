@@ -1,0 +1,107 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}User Address | {{ block.super }}{% endblock %}
+{% block main %}
+<nav class="navbar navbar-expand-md my-2">
+    <div class="container-fluid">
+        <ul class="account-nav mx-auto fw-medium">
+            <li class="nav-item px-2">
+                <a class="nav-link active hover-underline-animation" aria-current="page"
+                    href="{% url 'user_account' %}">Orders</a>
+            </li>
+            <li class="nav-item px-2 mx-1">
+                <a class="nav-link active hover-underline-animation" aria-current="page"
+                    href="{% url 'user_address' %}">Addresses</a>
+            </li>
+            <li class="nav-item px-2 mx-1">
+                <a class="nav-link active hover-underline-animation" aria-current="page"
+                    href="{% url 'user_logout' %}">Logout</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+<hr class="hr">
+<h2 class="center mt-5">ADD ADDRESS</h2>
+<div class="container mx-auto mt-5">
+    <form class="row g-3" id="addAddressForm" method="post">
+        {% csrf_token %}
+        <div class="col-12 form-floating">
+            <input type="text" class="form-control" id="inputName" name="name" placeholder=" " required>
+            <label for="inputName" class="form-label  ms-2">Name of Address</label>
+        </div>
+        <div class="col-md-6 form-floating">
+            <input type="email" class="form-control" id="inputEmail" name="email" placeholder=" " required>
+            <label for="inputEmail" class="form-label  ms-2">Email</label>
+        </div>
+        <div class="col-md-6 form-floating">
+            <input type="text" class="form-control" id="inputMobile" name="mobile" placeholder=" " required>
+            <label for="inputMobile" class="form-label  ms-2">Mobile</label>
+
+        </div>
+        <div class="col-12 form-floating">
+            <input type="text" class="form-control" id="inputAddress" name="address_line_1" placeholder=" " required>
+            <label for="inputAddress" class="form-label  ms-2">Address</label>
+        </div>
+        <div class="col-12 form-floating">
+            <input type="text" class="form-control" id="inputAddress2" name="address_line_2" placeholder=" " required>
+            <label for="inputAddress2" class="form-label  ms-2">Address 2</label>
+
+        </div>
+        <div class="col-md-6 form-floating">
+            <input type="text" class="form-control" id="inputCity" name="city" placeholder=" " required>
+            <label for="inputCity" class="form-label  ms-2">City</label>
+
+        </div>
+        <div class="col-md-4 form-floating detail-form">
+            <select id="inputState" class="form-select" name="state" required>
+                <option selected>Choose...</option>
+                <option value="AP">Andhra Pradesh</option>
+                <option value="AR">Arunachal Pradesh</option>
+                <option value="AS">Assam</option>
+                <option value="BR">Bihar</option>
+                <option value="CT">Chhattisgarh</option>
+                <option value="GA">Gujarat</option>
+                <option value="HR">Haryana</option>
+                <option value="HP">Himachal Pradesh</option>
+                <option value="JK">Jammu and Kashmir</option>
+                <option value="GA">Goa</option>
+                <option value="JH">Jharkhand</option>
+                <option value="KA">Karnataka</option>
+                <option value="KL">Kerala</option>
+                <option value="MP">Madhya Pradesh</option>
+                <option value="MH">Maharashtra</option>
+                <option value="MN">Manipur</option>
+                <option value="ML">Meghalaya</option>
+                <option value="MZ">Mizoram</option>
+                <option value="NL">Nagaland</option>
+                <option value="OR">Odisha</option>
+                <option value="PB">Punjab</option>
+                <option value="RJ">Rajasthan</option>
+                <option value="SK">Sikkim</option>
+                <option value="TN">Tamil Nadu</option>
+                <option value="TG">Telangana</option>
+                <option value="TR">Tripura</option>
+                <option value="UT">Uttarakhand</option>
+                <option value="UP">Uttar Pradesh</option>
+                <option value="WB">West Bengal</option>
+                <option value="AN">Andaman and Nicobar Islands</option>
+                <option value="CH">Chandigarh</option>
+                <option value="DN">Dadra and Nagar Haveli</option>
+                <option value="DD">Daman and Diu</option>
+                <option value="DL">Delhi</option>
+                <option value="LD">Lakshadweep</option>
+                <option value="PY">Puducherry</option>
+            </select>
+            <label for="inputState" class="form-label  ms-2">State</label>
+        </div>
+        <div class="col-md-2 form-floating">
+            <input type="text" class="form-control" id="inputZip" name="zip_code" placeholder=" "  required>
+            <label for="inputZip" class="form-label  ms-2">Zip</label>
+
+        </div>
+        <div class="col-12 d-flex justify-content-center form-group mt-4">
+            <button type="submit" class="button-black" formaction="{% url 'user_address' %}">ADD ADDRESS</button>
+        </div>
+    </form>
+</div>
+{% endblock %}

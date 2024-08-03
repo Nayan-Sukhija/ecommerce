@@ -1,0 +1,17 @@
+TO DO
+1. Show ordered items in user profile under orders
+2. Make admin panel.
+    a. show all orders
+    b. show all products
+    c. allow to add/edit products
+
+
+
+
+
+
+
+
+
+
+remove checkout button if user not logged in from cart

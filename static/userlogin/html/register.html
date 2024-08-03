@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% block title %}Register | {{ block.super }}{% endblock %}
+{% block main %}
+<div class="d-flex justify-content-center">
+    <div class="custom_container">
+        <h1 class="d-flex justify-content-center mt-5">REGISTER</h1>
+        <p class="label my-4 center">Please enter your details below:</p>
+        <form method="post" action="/user/register/">
+            {% csrf_token %}
+            <div class="mx-auto form-floating row mb-3">
+                <input type="text" class="form-control" id="inputname" name="name" required>
+                <label for="inputname" class="col-form-label">Name</label>
+            </div>
+            <div class="mx-auto form-floating row mb-3">
+                <input type="email" class="form-control" id="email" name="email" required>
+                <label for="email" class="col-form-label">Email</label>
+            </div>
+            <div class="mx-auto form-floating row mb-3">
+                <input type="password" class="form-control" id="inputPassword1" name="password1" required>
+                <label for="inputPassword1" class="col-form-label">Password</label>
+            </div>
+            <div class="mx-auto form-floating row mb-3">
+                <input type="password" class="form-control" id="inputPassword2" name="password2" required>
+                <label for="inputPassword2" class="col-form-label">Re-enter Password</label>
+            </div>
+            <div class="d-flex justify-content-center form-group mt-4">
+                <button type="submit" class="button-black">Register</button>
+            </div>
+        </form>
+        <div class="mt-5">
+            {% if form.errors %}
+            {% for field in form %}
+            {% for error in field.errors %}
+            <p>{{ error }}</p>
+            {% endfor %}
+            {% endfor %}
+            {% for error in form.non_field_errors %}
+            <p>{{ error }}</p>
+            {% endfor %}
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

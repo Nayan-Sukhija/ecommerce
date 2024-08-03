@@ -1,0 +1,117 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}{{product.name}} | {{ block.super }}{% endblock %}
+
+{% block main %}
+<div class="container">
+  <p class="mt-5 mb-3"><a href="{% url 'home' %}">Home</a> / {{product.name}}</p>
+  <div class="row">
+    <div class="col img-gallery">
+      <div class="product">
+        <div class="product-small-img pe-3">
+          {% for n in img_count %}
+          <img class="mb-3" src="{% static '' %}homesite/{{product.name}}_{{n}}.jpeg" onclick="clk(this)" />
+          {% endfor %}
+        </div>
+        <div class="img-container">
+          <img src="{% static '' %}homesite/{{product.name}}_0.jpeg" id="imgs" />
+        </div>
+      </div>
+    </div>
+    <div class="col product-detail-product-page">
+      <!-- <p class="product-catelog">THECHIKANLABEL</p> -->
+      <p class="product-name">{{product.name}}</p>
+      <p class="price"><span class="main-price">Rs. {{product.discounted_price}}</span> <span class="regular-price">Rs.
+        {{product.main_price}}</span>
+        <span class="save">SAVE {{percent}}%</span>
+      </p>
+      <hr class="hr">
+      <div class="product-form">
+        <form method="post" action="{% url 'add_cart' product.id %}">
+          <input type="hidden" name="product_id" value="{{ product.id }}">
+          <div class="row">
+            <p class="label my-4">Size: <span id="popsovers" class="popsovers">
+                Please select a size.
+              </span></p>
+            <div class="col">
+              {% if product.size_xs %}
+              <input class="checkbox-tools" type="radio" name="size" id="tool-1" value="XS" required>
+              <label class="for-checkbox-tools" for="tool-1">
+                <span class="label-text">XS</span>
+              </label>
+              {% else %}
+              <input class="checkbox-tools" type="radio" name="size" id="tool-2" value="XS" disabled>
+              <label class="for-checkbox-tools" for="tool-2">
+                <span class="label-text">XS</span>
+              </label>
+              {% endif %}
+              {% if product.size_s %}
+              <input class="checkbox-tools" type="radio" name="size" id="tool-2" value="S" required>
+              <label class="for-checkbox-tools" for="tool-2">
+                <span class="label-text">S</span>
+              </label>
+              {% else %}
+              <input class="checkbox-tools" type="radio" name="size" id="tool-2" value="S" disabled>
+              <label class="for-checkbox-tools" for="tool-2">
+                <span class="label-text">S</span>
+              </label>
+              {% endif %}
+              {% if product.size_m %}
+              <input class="checkbox-tools" type="radio" name="size" id="tool-3" value="M" required>
+              <label class="for-checkbox-tools" for="tool-3">
+                <span class="label-text">M</span>
+              </label>
+              {% else %}
+              <input class="checkbox-tools" type="radio" name="size" id="tool-2" value="M" disabled>
+              <label class="for-checkbox-tools" for="tool-2">
+                <span class="label-text">M</span>
+              </label>
+              {% endif %}
+              {% if product.size_l %}
+              <input class="checkbox-tools" type="radio" name="size" id="tool-4" value="L" required>
+              <label class="for-checkbox-tools" for="tool-4">
+                <span class="label-text">L</span>
+              </label>
+              {% else %}
+              <input class="checkbox-tools" type="radio" name="size" id="tool-2" value="L" disabled>
+              <label class="for-checkbox-tools" for="tool-2">
+                <span class="label-text">L</span>
+              </label>
+              {% endif %}
+              {% if product.size_xl %}
+              <input class="checkbox-tools" type="radio" name="size" id="tool-5" value="XL" required>
+              <label class="for-checkbox-tools" for="tool-5">
+                <span class="label-text">XL</span>
+              </label>
+              {% else %}
+              <input class="checkbox-tools" type="radio" name="size" id="tool-2" value="XL" disabled>
+              <label class="for-checkbox-tools" for="tool-2">
+                <span class="label-text">XL</span>
+              </label>
+              {% endif %}
+            </div>
+          </div>
+          <div class="row">
+            <p class="label my-4">Quantity:</p>
+            <div class="quantity buttons_added">
+              <input type="button" value="-" class="minus"><input type="number" step="1" min="1" max="" name="quantity"
+                value="1" title="Qty" class="input-text qty text" size="4" pattern="" inputmode=""><input type="button"
+                value="+" class="plus">
+            </div>
+          </div>
+          <div class="row w-100">
+            <div class="d-flex form-group mt-4">
+              <button type="submit" class="button-black" formaction="{% url 'buy_now' %}?product_id={{product.id}}"
+                onclick="check_size()">Buy Now</button>
+            </div>
+            <div class="d-flex form-group mt-1">
+              <button type="submit" class="button-black" onclick="check_size()" name="addCart">Add TO Cart</button>
+            </div>
+            {% csrf_token %}
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+{% endblock %}

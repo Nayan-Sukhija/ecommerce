@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block title %}Home | {{ block.super }}{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+      <div class="col">
+        <p>
+            <b>Category</b>
+        </p>
+        <ul class="nav flex-column">
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'home' %}">All</a>
+              </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Clothing</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Electronic</a>
+            </li>
+          </ul>
+      </div>
+      <div class="col-10">
+        {% block data %}
+          <h2>{{ cart }}</h2>
+          {% for item, info in items.items %}
+            <b>{{ item }}</b>
+            <ul class="nav flex-column">
+              <li class="nav-item">
+                Quantity: {{ info.quantity }}
+              </li>
+              <li class="nav-item">
+                Total Price: Rs. {{ info.total_price }}
+              </li>
+              <li class="nav-item">
+                <a href="{% url 'remove_to_cart' info.id%}">Remove from cart</a>
+              </li>
+            </ul>
+            <hr>
+          {% endfor %}
+        {% endblock %}
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
